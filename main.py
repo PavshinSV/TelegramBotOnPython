@@ -55,6 +55,8 @@ def user_move(message):
     if game_over:
         bot.send_message(user_id, f"Игра окончена.\nЧтобы начать новую введите /start")
     else:
+        if max_move>candy:
+            max_move=candy
         if message.text.isdigit():
             if int(message.text) > min_move - 1 and max_move + 1 > int(message.text):
                 move = int(message.text)
@@ -69,6 +71,7 @@ def user_move(message):
             win_combo()
             if game_over:
                 bot.send_message(user_id, f"Игрок выиграл!!!")
+                bot.send_message(user_id, f"Ещё разок? /start!!!")
             else:
                 ai_move()
 
@@ -94,7 +97,10 @@ def ai_move():
     win_combo()
     if game_over:
         bot.send_message(user_id, f"Бот выиграл!!!")
+        bot.send_message(user_id, f"Ещё разок? /start!!!")
     else:
+        if max_move>candy:
+            max_move=candy
         bot.send_message(user_id, f"Осталось {candy} конфет.\nВозмите от {min_move} до {max_move} конфет")
 
 def win_combo():
